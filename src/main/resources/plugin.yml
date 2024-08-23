@@ -2,3 +2,9 @@ name: WreckRegen
 version: '${project.version}'
 main: me.clutchmasterftw.wreckregen.WreckRegen
 api-version: '1.19'
+commands:
+  wreckregen:
+    description: Gives yourself a WreckRegen wand.
+  permissions:
+    wreckregen.admin:
+      description: Gives the ability to use WreckRegen.
