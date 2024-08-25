@@ -1,2 +1,11 @@
+# Interval at which blocks will regen (in ticks, 20 ticks per second)
+interval: 6000
+
+# Whether to announce to the whole server when blocks are regenerated, or not
+announce: true
+
+# The message at which to announce to the whole server if announce is set to true
+announce-message: "All trees have been reset!"
+
 # Locations & details of blocks set to regen
 blocks-to-regen:
