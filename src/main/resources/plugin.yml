@@ -2,6 +2,7 @@ name: WreckRegen
 version: '${project.version}'
 main: me.clutchmasterftw.wreckregen.WreckRegen
 api-version: '1.19'
+depend: [WorldGuard]
 commands:
   wreckregen:
     description: Gives yourself a WreckRegen wand.
