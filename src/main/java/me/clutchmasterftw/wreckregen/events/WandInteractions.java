@@ -17,6 +17,9 @@ import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Orientable;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +29,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Directional;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -55,6 +59,12 @@ public class WandInteractions implements Listener {
                 int y = location.getBlockY();
                 int z = location.getBlockZ();
                 String blockType = block.getType().name();
+                BlockData blockData = block.getBlockData();
+                String blockDirection = "NONE";
+                if(blockData instanceof Orientable) {
+                    Orientable orientable = (Orientable) blockData;
+                    blockDirection = orientable.getAxis().toString();
+                }
                 String regionName = x + "_" + y + "_" + z + "_" + "regenblock";
 
                 player.sendMessage(WreckRegen.PREFIX + "You set the block at " + ChatColor.YELLOW + x + ", " + y + ", " + z + ChatColor.WHITE + " to regenerate as " + ChatColor.YELLOW + blockType + ChatColor.WHITE + ".");
@@ -106,6 +116,7 @@ public class WandInteractions implements Listener {
                 blockMap.put("y", y);
                 blockMap.put("z", z);
                 blockMap.put("type", blockType);
+                blockMap.put("direction", blockDirection);
                 blockMap.put("region", regionName);
 
                 blocksToRegen.add(blockMap);

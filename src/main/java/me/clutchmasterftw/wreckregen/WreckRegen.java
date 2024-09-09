@@ -2,8 +2,13 @@ package me.clutchmasterftw.wreckregen;
 
 import me.clutchmasterftw.wreckregen.events.WandInteractions;
 import org.bukkit.*;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Orientable;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.material.Directional;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nullable;
@@ -52,7 +57,7 @@ public final class WreckRegen extends JavaPlugin {
 
     public static void regenerateBlocks(@Nullable Player player) {
         //Since the method is static, we can't use "this" here
-        WreckRegen.getPlugin().getLogger().info("[WreckRegen] Regenerated all blocks.");
+        WreckRegen.getPlugin().getLogger().info("Regenerated all blocks.");
 
         final FileConfiguration FILE = WreckRegen.getPlugin().getConfig();
         final List<Map<?, ?>> BLOCKSTOREGEN = FILE.getMapList("blocks-to-regen");
@@ -67,6 +72,20 @@ public final class WreckRegen extends JavaPlugin {
             Material type = Material.valueOf((String) block.get("type"));
 
             location.getBlock().setType(type);
+
+            if(block.get("direction") != "NONE") {
+                BlockData blockData = location.getBlock().getBlockData();
+                try {
+                    Orientable orientable = (Orientable) blockData;
+
+                    orientable.setAxis(Axis.valueOf((String) block.get("direction")));
+
+                    location.getBlock().setBlockData(orientable);
+                } catch (ClassCastException e) {
+                    e.printStackTrace();
+                    WreckRegen.getPlugin().getLogger().severe("Error occurred at regen block: " + block.get("region"));
+                }
+            }
         }
 
         if(player == null) {
