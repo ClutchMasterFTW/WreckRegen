@@ -73,7 +73,7 @@ public final class WreckRegen extends JavaPlugin {
 
             location.getBlock().setType(type);
 
-            if(block.get("direction") != "NONE") {
+            if(!block.get("direction").equals("NONE")) {
                 BlockData blockData = location.getBlock().getBlockData();
                 try {
                     Orientable orientable = (Orientable) blockData;
@@ -83,7 +83,7 @@ public final class WreckRegen extends JavaPlugin {
                     location.getBlock().setBlockData(orientable);
                 } catch (ClassCastException e) {
                     e.printStackTrace();
-                    WreckRegen.getPlugin().getLogger().severe("Error occurred at regen block: " + block.get("region"));
+                    WreckRegen.getPlugin().getLogger().severe("Error regarding DIRECTION occurred at regen block: " + block.get("region"));
                 }
             }
         }

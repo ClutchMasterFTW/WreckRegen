@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class Commands implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (args[0].equals("wand")) {
+        if (args[0].equals("wand") && sender.hasPermission("wreckregen.admin")) {
             ItemStack wand = Wand.giveWand();
 
             if (sender instanceof Player) {
@@ -32,7 +32,7 @@ public class Commands implements CommandExecutor {
                 player.sendMessage(WreckRegen.PREFIX + ChatColor.RED + "You need an empty slot in your inventory to receive a wand!");
                 return true;
             }
-        } else if(args[0].equals("regen")) {
+        } else if(args[0].equals("regen") && sender.hasPermission("wreckregen.admin")) {
             WreckRegen.regenerateBlocks((Player) sender);
         }
         return true;

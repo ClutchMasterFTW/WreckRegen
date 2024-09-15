@@ -6,6 +6,6 @@ depend: [WorldGuard]
 commands:
   wreckregen:
     description: Gives yourself a WreckRegen wand.
-  permissions:
-    wreckregen.admin:
-      description: Gives the ability to use WreckRegen.
+permissions:
+  wreckregen.admin:
+    description: Gives the ability to use WreckRegen.
